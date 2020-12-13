@@ -9,9 +9,7 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/usr/src/app/api
-    networks:
-      - webapp
-    command: npm run start:dev
+      - /usr/src/app/api/node_modules
   frontend:
     build:
       context: ./frontend
@@ -20,11 +18,6 @@ services:
     stdin_open: true
     ports:
       - "5000:5000"
-    networks:
-      - webapp
     volumes:
       - ./frontend:/usr/src/app/my-app
-    command: npm run dev --host 127.0.0.1
-networks:
-  webapp:
-    driver: bridge
+      - /usr/src/app/my-app/node_modules
