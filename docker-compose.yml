@@ -7,9 +7,12 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    networks:
+      - webapp
     volumes:
       - ./backend:/usr/src/app/api
       - /usr/src/app/api/node_modules
+    command: npm run start:dev
   frontend:
     build:
       context: ./frontend
@@ -21,3 +24,9 @@ services:
     volumes:
       - ./frontend:/usr/src/app/my-app
       - /usr/src/app/my-app/node_modules
+    networks:
+      - webapp
+    command: npm run dev
+networks:
+  webapp:
+    driver: bridge
