@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: nestjs-api
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app/api
+    networks:
+      - webapp
+    command: npm run start:dev
+  frontend:
+    build:
+      context: ./frontend
+    container_name: svelte-ui
+    restart: always
+    stdin_open: true
+    ports:
+      - "5000:5000"
+    networks:
+      - webapp
+    volumes:
+      - ./frontend:/usr/src/app/my-app
+    command: npm run dev --host 127.0.0.1
+networks:
+  webapp:
+    driver: bridge
